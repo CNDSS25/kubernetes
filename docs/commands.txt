@@ -1,3 +1,19 @@
+Allgemein:
+kubectl get pods
+kubectl logs <POD-NAME>
+kubectl delete pod <POD-NAME>
+
+kubectl delete deployments --all
+kubectl delete statefulsets --all
+kubectl delete pods --all
+kubectl delete services --all
+kubectl delete pvc --all
+kubectl delete secrets --all
+kubectl delete configmaps --all
+
+kubectl apply -k .
+
+
 MongoDB:
 kubectl get statefulsets mongodb
 kubectl get pods -l app=mongodb
@@ -5,9 +21,24 @@ kubectl get services mongodb
 kubectl get pvc
 
 kubectl apply -f mongodb.yml
-
-kubectl get pods
-kubectl logs <POD-NAME>
-
 kubectl port-forward svc/mongodb 27017:27017
 
+
+RabbitMQ:
+kubectl apply -f rabbitmq.yml
+kubectl port-forward svc/rabbitmq 15672:15672
+
+
+property-service:
+kubectl apply -f property-service.yml
+kubectl port-forward svc/property-service 8001:8001
+kubectl logs deployment/property-service
+
+
+Frontend:
+kubectl apply -f frontend.yml
+kubectl port-forward svc/nextjs-frontend-service 3000:3000
+
+
+user-service:
+kubectl port-forward svc/user-service 8000:8000

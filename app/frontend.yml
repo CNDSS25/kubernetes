@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nextjs-frontend
+  name: frontend
+  namespace: finsight-app
   labels:
-    app: nextjs-frontend
+    app: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nextjs-frontend
+      app: frontend
   template:
     metadata:
       labels:
-        app: nextjs-frontend
+        app: frontend
     spec:
       containers:
-        - name: nextjs-frontend
+        - name: frontend
           image: ghcr.io/cndss25/frontend:latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -27,10 +28,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nextjs-frontend-service
+  name: frontend
+  namespace: finsight-app
 spec:
   selector:
-    app: nextjs-frontend
+    app: frontend
   ports:
     - protocol: TCP
       port: 3000

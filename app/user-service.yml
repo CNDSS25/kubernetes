@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: finsight-app
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+      name: http
+  selector:
+    app: user-service
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: finsight-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: ghcr.io/cndss25/user-service:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_NAME
+              value: "user_service"
+#            - name: DB_USER
+#              value: "postgres"
+#            - name: DB_PASSWORD
+#              value: "password"
+            - name: DB_HOST
+              value: "mongodb"
+            - name: DB_PORT
+              value: "27017"
+#            - name: RABBITMQ_USER
+#              value: "guest"
+#            - name: RABBITMQ_PASSWORD
+#              value: "guest"
+#            - name: RABBITMQ_HOST
+#              value: "rabbitmq"
+#            - name: RABBITMQ_PORT
+#              value: "5672"
+#            - name: RABBITMQ_EXCHANGE
+#              value: "FinSight"
+#            - name: RABBITMQ_ROUTING_KEYS_COLLECTION
+#              value: "properties_listed,rental_income,test"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-user
+  namespace: finsight-app
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - backend:
+              service:
+                name: user-service
+                port:
+                  number: 8000
+            path: /api/user
+            pathType: Prefix
