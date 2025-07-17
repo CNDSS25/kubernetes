@@ -1,0 +1,13 @@
+MongoDB:
+kubectl get statefulsets mongodb
+kubectl get pods -l app=mongodb
+kubectl get services mongodb
+kubectl get pvc
+
+kubectl apply -f mongodb.yml
+
+kubectl get pods
+kubectl logs <POD-NAME>
+
+kubectl port-forward svc/mongodb 27017:27017
+
