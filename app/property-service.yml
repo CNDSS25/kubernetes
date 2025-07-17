@@ -66,10 +66,10 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: property.finsight.local
+    - host: localhost
       http:
         paths:
-          - path: /
+          - path: /api/property
             pathType: Prefix
             backend:
               service:

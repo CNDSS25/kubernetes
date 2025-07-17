@@ -64,10 +64,10 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: user.finsight.local
+    - host: localhost
       http:
         paths:
-          - path: /
+          - path: /api/user
             pathType: Prefix
             backend:
               service:
