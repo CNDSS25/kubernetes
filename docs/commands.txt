@@ -1,4 +1,8 @@
 Allgemein:
+minikube start
+minikube dashboard
+minikube tunnel
+
 kubectl get pods
 kubectl logs <POD-NAME>
 kubectl delete pod <POD-NAME>

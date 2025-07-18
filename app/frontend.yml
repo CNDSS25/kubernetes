@@ -21,9 +21,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
-          env:
-            - name: NODE_ENV
-              value: "production"
+#          env:
+#            - name: NODE_ENV
+#              value: "production"
 ---
 apiVersion: v1
 kind: Service
